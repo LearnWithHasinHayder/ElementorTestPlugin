@@ -228,6 +228,14 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'gallery',
+			[
+				'label'       => __( 'Gallery Control', 'elementortestplugin' ),
+				'type'        => \Elementor\Controls_Manager::GALLERY,
+			]
+		);
+
 		$this->end_controls_section();
 
 
@@ -250,6 +258,17 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
 		echo "<br/>";
 		print_r($settings['demo_dimension']);
 		echo "</div>";
+
+		echo "<div>";
+		$gallery_images = $settings['gallery'];
+		echo "<pre>";
+//		print_r($gallery_images);
+        foreach($gallery_images as $gallery_image){
+            echo wp_get_attachment_image($gallery_image['id'],'thumbnail');
+        }
+		echo "</pre>";
+		echo "</div>";
+
 	}
 
 	protected function _content_template() {
@@ -283,6 +302,21 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
         <div>
             Width: {{{ settings.demo_dimension.width }}}<br/>
             Height: {{{ settings.demo_dimension.height }}}
+        </div>
+        <div>
+            <#
+                _.each(settings.gallery, function(image){
+                    var image = {
+                    id:image.id,
+                    url:image.url,
+                    size:'medium',
+                    }
+                    var imageUrl = elementor.imagesManager.getImageUrl(image);
+                    #>
+                        <img src='{{ imageUrl }}'/>
+                    <#
+                });
+            #>
         </div>
 		<?php
 	}
