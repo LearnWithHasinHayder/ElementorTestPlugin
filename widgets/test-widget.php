@@ -236,6 +236,20 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'demo_icon',
+			[
+				'label'       => __( 'Icon Control', 'elementortestplugin' ),
+				'type'        => \Elementor\Controls_Manager::ICON,
+                'include'=>[
+                        'fa fa-facebook',
+                        'fa fa-twitter',
+                        'fa fa-github',
+                ],
+                'default'=>'fa fa-twitter'
+			]
+		);
+
 		$this->end_controls_section();
 
 
@@ -268,6 +282,12 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
         }
 		echo "</pre>";
 		echo "</div>";
+
+		echo "<div>";
+		echo '<i class="'.$settings['demo_icon'].'"></i>';
+		echo "</div>";
+
+
 
 	}
 
@@ -313,10 +333,14 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
                     }
                     var imageUrl = elementor.imagesManager.getImageUrl(image);
                     #>
-                        <img src='{{ imageUrl }}'/>
+                        <img src='{{{ imageUrl }}}'/>
                     <#
                 });
             #>
+        </div>
+
+        <div>
+            <i class="{{{ settings.demo_icon }}}"></i>
         </div>
 		<?php
 	}
