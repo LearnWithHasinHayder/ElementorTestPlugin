@@ -330,8 +330,18 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
         $settings    = $this->get_settings_for_display();
         $heading     = $settings['heading'];
         $description = $settings['heading_description'];
-        echo "<h1 class='heading'>" . esc_html( $heading ) . "</h1>";
-        echo "<p class='description'>" . wp_kses_post( $description ) . "</p>";
+
+        $this->add_inline_editing_attributes('heading','none');
+        $this->add_inline_editing_attributes('heading_description','none');
+        $this->add_render_attribute('heading',[
+            'class'=>'heading'
+        ]);
+        $this->add_render_attribute('heading_description',[
+            'class'=>'description'
+        ]);
+
+        echo "<h1 ". $this->get_render_attribute_string('heading') ." >" . esc_html( $heading ) . "</h1>";
+        echo "<p ". $this->get_render_attribute_string('heading_description') ." >" . wp_kses_post( $description ) . "</p>";
         //echo wp_get_attachment_image($settings['image']['id'],'medium');
         echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $settings, 'imagesz', 'imagex' );
 
@@ -395,8 +405,17 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
         console.log(imageUrl);
         #>
 
-        <h1 class="heading">{{{settings.heading}}}</h1>
-        <p class="description">{{{settings.heading_description}}}</p>
+        <#
+            view.addInlineEditingAttributes('heading','none');
+            view.addRenderAttribute('heading',{'class':'heading'});
+
+            view.addInlineEditingAttributes('heading_description','none');
+            view.addRenderAttribute('heading_description',{'class':'heading'});
+        #>
+
+
+        <h1 {{{ view.getRenderAttributeString('heading') }}}>{{{settings.heading}}}</h1>
+        <p {{{ view.getRenderAttributeString('heading_description') }}}>{{{settings.heading_description}}}</p>
         <img src="{{{ imageUrl }}}" alt="">
         <ul>
             <#
@@ -447,9 +466,7 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
         <p>
             Size: {{{ settings.demo_slider.size }}} {{{ settings.demo_slider.unit }}}
         </p>
-        <#
-        console.log(settings);
-        #>
+
         <?php
     }
 
