@@ -320,6 +320,30 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
             ]
         );
 
+	    $this->add_group_control(
+		    \Elementor\Group_Control_Typography::get_type(),
+		    [
+			    'label'     => __( 'Typography for P3', 'elementortestplugin' ),
+			    'name'      => 'demo_typography',
+			    'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_2,
+			    'selector' => '{{WRAPPER}} .p3',
+//			    'selectors' => ['{{WRAPPER}} .p3','{{WRAPPER}} .p2']
+		    ]
+	    );
+
+	    $this->add_group_control(
+		    \Elementor\Group_Control_Text_Shadow::get_type(),
+		    [
+			    'label'     => __( 'Text Shadow', 'elementortestplugin' ),
+			    'name'      => 'demo_ts',
+			    'selector' => '{{WRAPPER}} .p3',
+//			    'selectors' => ['{{WRAPPER}} .p3','{{WRAPPER}} .p2']
+		    ]
+	    );
+
+
+
+
 
         $this->end_controls_section();
 
@@ -376,6 +400,13 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
         </p>
 
         <p class="p2">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae, consectetur corporis dolorum ea
+            eos, iste iusto neque quod saepe ullam veniam vitae voluptates. Cumque libero, sapiente. At atque ea
+            laboriosam minima officia perferendis perspiciatis porro rem suscipit tempore! At, doloribus, neque.
+            Aspernatur beatae eaque esse laudantium magni placeat, vero?
+        </p>
+
+        <p class="p3">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae, consectetur corporis dolorum ea
             eos, iste iusto neque quod saepe ullam veniam vitae voluptates. Cumque libero, sapiente. At atque ea
             laboriosam minima officia perferendis perspiciatis porro rem suscipit tempore! At, doloribus, neque.
@@ -457,6 +488,13 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base {
         </p>
 
         <p class="p2">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae, consectetur corporis dolorum ea
+            eos, iste iusto neque quod saepe ullam veniam vitae voluptates. Cumque libero, sapiente. At atque ea
+            laboriosam minima officia perferendis perspiciatis porro rem suscipit tempore! At, doloribus, neque.
+            Aspernatur beatae eaque esse laudantium magni placeat, vero?
+        </p>
+
+        <p class="p3">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae, consectetur corporis dolorum ea
             eos, iste iusto neque quod saepe ullam veniam vitae voluptates. Cumque libero, sapiente. At atque ea
             laboriosam minima officia perferendis perspiciatis porro rem suscipit tempore! At, doloribus, neque.

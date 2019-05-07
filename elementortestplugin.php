@@ -66,27 +66,56 @@ final class ElementorTestExtension {
 		add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
 
 		add_action( "elementor/elements/categories_registered", [ $this, 'register_new_category' ] );
+
+		add_action( "elementor/frontend/after_enqueue_styles", [ $this, 'widget_styles' ] );
+		add_action( "elementor/editor/after_enqueue_scripts", [ $this, 'pricing_editor_assets' ] );
+		add_action( "elementor/frontend/after_enqueue_scripts" , [ $this, 'progressbar_assets' ] );
+
 	}
 
-	public function register_new_category($manager){
-		$manager->add_category('testcategory',[
-			'title'=>__('Test Category','elementortestplugin'),
-			'icon'=>'fa fa-image'
-		]);
+	function progressbar_assets(){
+		wp_enqueue_script( "progressbar-js", plugins_url( "/assets/js/progressbar.min.js", __FILE__ ),null, time(), true );
+		wp_enqueue_script( "progressbar-helper-js", plugins_url( "/assets/js/scripts.js", __FILE__ ),null, time(), true );
 
-		$manager->add_category('sliders',[
-			'title'=>__('Sliders','elementortestplugin'),
-			'icon'=>'fa fa-video'
-		]);
+	}
+
+
+	function pricing_editor_assets() {
+		wp_enqueue_script( "pricing-editor-js", plugins_url( "/assets/js/main.js", __FILE__ ), array( "jquery" ), time(), true );
+	}
+
+
+	function widget_styles() {
+		wp_enqueue_style( "froala-css", "//cdnjs.cloudflare.com/ajax/libs/froala-design-blocks/2.0.1/css/froala_blocks.min.css" );
+	}
+
+
+	public function register_new_category( $manager ) {
+		$manager->add_category( 'testcategory', [
+			'title' => __( 'Test Category', 'elementortestplugin' ),
+			'icon'  => 'fa fa-image'
+		] );
+
+		$manager->add_category( 'sliders', [
+			'title' => __( 'Sliders', 'elementortestplugin' ),
+			'icon'  => 'fa fa-video'
+		] );
 	}
 
 	public function init_widgets() {
 		require_once( __DIR__ . '/widgets/test-widget.php' );
+		require_once( __DIR__ . '/widgets/faq-widget.php' );
+		require_once( __DIR__ . '/widgets/pricing-widget.php' );
+		require_once( __DIR__ . '/widgets/progressbar-widget.php' );
 
 		// Register widget
 		Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Test_Widget() );
+		Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Faq_Widget() );
+		Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Pricing_Widget() );
+		Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Progressbar_Widget() );
 
 	}
+
 
 	public function admin_notice_minimum_php_version() {
 		if ( isset( $_GET['activate'] ) ) {
